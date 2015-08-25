@@ -6,6 +6,7 @@
     */
 
     require_once "src/Course.php";
+    require_once "src/Student.php";
 
     $server = 'mysql:host=localhost; dbname=registrar_test';
     $username = 'root';
@@ -129,7 +130,7 @@
             $test_course->delete();
 
             $this->assertEquals([$test_course2], Course::getAll());
-            
+
         }
 
 

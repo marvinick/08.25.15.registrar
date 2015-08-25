@@ -56,6 +56,22 @@
             $this->setEnrollmentDate($new_enrollment_date);
         }
 
+        //NOT TESTED YET
+        function addCourse($course)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO students_courses (student_id, course_id) VALUES ({$this->getId()}, {$course->getId()});");
+        }
+
+        //INCOMPLETE, UNTESTED
+        function getCourses($student_id)
+        {
+            $courses = $GLOBALS['DB']->query("SELECT courses.* FROM
+                    students JOIN students_courses ON (students.id = students_courses.student_id)
+                            JOIN courses ON (students_courses.course_id = courses.id)
+                            WHERE students.id = {$student_id}");
+
+        }
+
         static function find($search_id)
         {
             $found_student = null;

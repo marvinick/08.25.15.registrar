@@ -6,6 +6,7 @@
     */
 
     require_once "src/Student.php";
+    require_once "src/Courses.php";
 
     $server = 'mysql:host=localhost; dbname=registrar_test';
     $username = 'root';
@@ -130,6 +131,46 @@
             $this->assertEquals([$test_student2], Student::getAll());
 
         }
+
+        //UNTESTED
+        function testAddCourse()
+        {
+            $name = "Bob";
+            $enrollment_date = "2015-01-01";
+            $test_student = new Student($name, $enrollment_date);
+            $test_student->save();
+
+            $course_name = "History";
+            $course_number = "HIST100";
+            $test_course = new Course($course_name, $course_number);
+            $test_course->save();
+
+            $test_student->addCourse($test_course);
+
+            $this->assertEquals($test_student->getCourses(), [$test_course]);
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
