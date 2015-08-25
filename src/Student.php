@@ -56,20 +56,30 @@
             $this->setEnrollmentDate($new_enrollment_date);
         }
 
-        //NOT TESTED YET
+        //Adds course_id and student_id to the join table
         function addCourse($course)
         {
             $GLOBALS['DB']->exec("INSERT INTO students_courses (student_id, course_id) VALUES ({$this->getId()}, {$course->getId()});");
         }
 
-        //INCOMPLETE, UNTESTED
-        function getCourses($student_id)
+        //Returns the courses associated with a particular student using a join statement
+        function getCourses()
         {
-            $courses = $GLOBALS['DB']->query("SELECT courses.* FROM
-                    students JOIN students_courses ON (students.id = students_courses.student_id)
+            $student_id = $this->getId();
+            $returned_courses = $GLOBALS['DB']->query("SELECT courses.* FROM
+                            students JOIN students_courses ON (students.id = students_courses.student_id)
                             JOIN courses ON (students_courses.course_id = courses.id)
                             WHERE students.id = {$student_id}");
-
+            $courses = array();
+            foreach($returned_courses as $course)
+            {
+                $name = $course['name'];
+                $course_number = $course['course_number'];
+                $id = $course['id'];
+                $new_course = new Course($name, $course_number, $id);
+                array_push($courses, $new_course);
+            }
+            return $courses;
         }
 
         static function find($search_id)
