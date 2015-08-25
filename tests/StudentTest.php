@@ -82,7 +82,7 @@
             $this->assertEquals([$test_student, $test_student2], $result);
         }
 
-        function find()
+        function testFind()
         {
             $name = "Bob";
             $enrollment_date = "2015-01-01";
