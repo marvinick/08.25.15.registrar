@@ -46,6 +46,7 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM student_courses WHERE student_id = {$this->getId()};");
         }
 
         //Will update both name and enrollment date at the same time.  If just updating name, send the current enrollment date to the function as $new_enrollment_date
@@ -114,6 +115,8 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM students;");
         }
+
+
     }
 
 

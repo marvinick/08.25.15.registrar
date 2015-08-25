@@ -121,14 +121,17 @@
             $test_student = new Student($name, $enrollment_date);
             $test_student->save();
 
-            $name2 = "Kevin";
-            $enrollment_date2 = "2015-02-01";
-            $test_student2 = new Student($name, $enrollment_date);
-            $test_student2->save();
+            
+            $name = "History";
+            $course_number = "HIST100";
+            $test_course = new Course($name, $course_number);
+            $test_course->save();
 
+            //act
+            $test_student->addCourse($test_course);
             $test_student->delete();
 
-            $this->assertEquals([$test_student2], Student::getAll());
+            $this->assertEquals([], $test_student->getCourses());
 
         }
 
@@ -171,6 +174,8 @@
 
             $this->assertEquals($test_student->getCourses(), [$test_course, $test_course2]);
         }
+
+
     }
 
 

@@ -122,14 +122,15 @@
             $test_course = new Course($name, $course_number);
             $test_course->save();
 
-            $name2 = "Math";
-            $course_number2 = "MATH100";
-            $test_course2 = new Course($name, $course_number);
-            $test_course2->save();
+            $name = "Bob";
+            $enrollment_date = "2015-01-01";
+            $test_student = new Student($name, $enrollment_date);
+            $test_student->save();
 
+            $test_course->addStudent($test_student);
             $test_course->delete();
 
-            $this->assertEquals([$test_course2], Course::getAll());
+            $this->assertEquals([], $test_course->getStudents());
 
         }
 
