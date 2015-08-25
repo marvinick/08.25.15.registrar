@@ -49,5 +49,38 @@
             $this->assertEquals(null, $result);
         }
 
+        function testSave()
+        {
+            $name = "History";
+            $course_number = "HIST100";
+            $test_course = new Course($name, $course_number);
+            $test_course->save();
+
+            $result = Course::getAll();
+
+            $this->assertEquals($test_course, $result[0]);
+
+        }
+
+        function testGetAll()
+        {
+            $name = "History";
+            $course_number = "HIST100";
+            $test_course = new Course($name, $course_number);
+            $test_course->save();
+
+            $name2 = "Math";
+            $course_number2 = "MATH100";
+            $test_course2 = new Course($name, $course_number);
+            $test_course2->save();
+
+            $result = Course::getAll();
+
+            $this->assertEquals([$test_course, $test_course2], $result);         
+
+
+        }
+
+
 
     }
