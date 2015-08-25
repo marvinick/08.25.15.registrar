@@ -17,9 +17,19 @@
             return $this->name;
         }
 
+        function setName($new_name)
+        {
+            $this->name = $new_name;
+        }
+
         function getEnrollmentDate()
         {
             return $this->enrollment_date;
+        }
+
+        function setEnrollmentDate($new_enrollment_date)
+        {
+            $this->enrollment_date = $new_enrollment_date;
         }
 
         function getId()
@@ -31,6 +41,27 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO students (name, enrollment_date) VALUES ('{$this->getName()}', '{$this->getEnrollmentDate()}');");
             $this->id=$GLOBALS['DB']->lastInsertId();
+        }
+
+        //Will update both name and enrollment date at the same time.  If just updating name, send the current enrollment date to the function as $new_enrollment_date
+        function update($new_name, $new_enrollment_date)
+        {
+            $GLOBALS['DB']->exec("UPDATE students SET name = '{$new_name}', enrollment_date = '{$new_enrollment_date}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+            $this->setEnrollmentDate($new_enrollment_date);
+        }
+
+        static function find($search_id)
+        {
+            $found_student = null;
+            $students = Student::getAll();
+            foreach($students as $student) {
+                $student_id = $student->getId();
+                if ($student_id == $search_id) {
+                    $found_student = $student;
+                }
+            }
+            return $found_student;
         }
 
         static function getAll()

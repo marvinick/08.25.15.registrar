@@ -81,6 +81,38 @@
 
             $this->assertEquals([$test_student, $test_student2], $result);
         }
+
+        function find()
+        {
+            $name = "Bob";
+            $enrollment_date = "2015-01-01";
+            $test_student = new Student($name, $enrollment_date);
+            $test_student->save();
+
+            $name2 = "Kevin";
+            $enrollment_date2 = "2015-02-01";
+            $test_student2 = new Student($name, $enrollment_date);
+            $test_student2->save();
+
+            $result = Student::find($test_student->getId());
+
+            $this->assertEquals($test_student, $result);
+        }
+
+        function testUpdate()
+        {
+            $name = "Bob";
+            $enrollment_date = "2015-01-01";
+            $test_student = new Student($name, $enrollment_date);
+            $test_student->save();
+
+            $new_name = "Kevin";
+            $new_enrollment_date = "2015-02-01";
+
+            $test_student->update($new_name, $enrollment_date);
+
+            $this->assertEquals("Kevin", $test_student->getName());
+        }
     }
 
 ?>
