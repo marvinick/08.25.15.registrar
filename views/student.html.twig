@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Student</title>
+    </head>
+    <body>
+        <h1>{{ student.getName }}</h1>
+
+        <% if courses is not empty %>
+            <p>Courses</p>
+            <ul>
+                {% for courses in course %}
+                    <li>{{ student.getName }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h4>Add course</h4>
+
+        <form action='/add_courses' method='post'>
+            <input id="student_id" name='student_id' type='hidden' value="{{ student.getId }}">
+
+            <label for="course_id">Select course</label>
+            <select id='course_id' name='course_id' type='text'>
+              {% for course in all_courses %}
+                <option value="{{ course.getId }}"> {{ course.getName }} </option>
+              {% endfor %}
+            </select>
+            <button type='submit'>Add course</button>
+        </form>
+
+    <p><a href="/students/{{ student.getId }}/edit">Edit this student</a></p>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
